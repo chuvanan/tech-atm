@@ -90,7 +90,9 @@ get_atm_info = function(url, n_page, n_page_item) {
 ## MAIN
 
 techcom_atms = get_atm_info(base_url, n_page = 1, n_page_item = 849)
+
 techcom_atms$province = trimws(stringr::word(techcom_atms$atm_addresses, -1, sep = ","))
+techcom_atms$branch[grepl("Hội Sở", techcom_atms$atm_names)] = 1
 
 ## export
 writexl::write_xlsx(techcom_atms, path = here::here("data/techcombank_atms.xlsx"))
